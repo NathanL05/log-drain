@@ -90,6 +90,11 @@ write_auth_log() {
     >> "$AUTH_LOG"
 }
 
+# --- Clear logs on startup ---
+> "$ACCESS_LOG"
+> "$ERROR_LOG"
+> "$AUTH_LOG"
+
 # --- Main loop ---
 echo "LogDrain generator started. Writing to $LOG_DIR"
 echo "Press Ctrl+C to stop."
