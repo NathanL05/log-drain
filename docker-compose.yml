@@ -1,0 +1,16 @@
+# ============================================================
+# LogDrain — Docker Compose (Initial)
+# Phase 2: Log generator only
+# Runs the containerised log generator with a persistent volume
+# ============================================================
+
+services:
+  log-generator:
+    build: .
+    container_name: logdrain-generator
+    volumes:
+      - log-data:/app/logs
+    restart: unless-stopped
+
+volumes:
+  log-data:
