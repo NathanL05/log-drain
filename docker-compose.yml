@@ -9,8 +9,8 @@ services:
     build: .
     container_name: logdrain-generator
     volumes:
-      - log-data:/app/log
+      - log-data:/app/logs
     restart: unless-stopped
 
 volumes:
-  log_data:
+  log-data:
