@@ -1,0 +1,14 @@
+server:
+  http_listen_port: 9080
+
+scrape_configs:
+  - job_name: 'fetch_logs'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: 'logdrain'
+          __path__: /app/logs/*.log
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
