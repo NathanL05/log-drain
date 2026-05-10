@@ -1,9 +1,3 @@
-# ============================================================
-# LogDrain — Docker Compose (Initial)
-# Phase 2: Log generator only
-# Runs the containerised log generator with a persistent volume
-# ============================================================
-
 services:
   log-generator:
     build: .
@@ -35,6 +29,9 @@ services:
       - '3000:3000'
     volumes:
       - grafana-data:/var/lib/grafana
+      - ./config/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yml
+      - ./config/grafana-datasource.yml:/etc/grafana/provisioning/datasources/grafana-datasource.yml
+      - ./dashboards:/var/lib/grafana/dashboards
     depends_on:
       - loki
 
