@@ -100,7 +100,7 @@ echo "LogDrain generator started. Writing to $LOG_DIR"
 echo "Press Ctrl+C to stop."
 
 while true; do
-    for _ in $(seq 1 10); do
+    for _ in $(seq 1 1); do
         write_access_log
     done
 

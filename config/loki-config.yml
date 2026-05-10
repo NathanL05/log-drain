@@ -1,9 +1,3 @@
-# ============================================================
-# LogDrain — Loki Configuration
-# Phase 3: Log storage and indexing
-# Loki receives logs from Promtail and stores them on disk
-# ============================================================
-
 auth_enabled: false
 
 server:
@@ -22,10 +16,9 @@ ingester:
   chunk_idle_period: 5m
   chunk_retain_period: 30s
   max_transfer_retries: 0
+  wal:
+    dir: /loki/wal
 
-# ------------------------------------------------------------
-# Schema — how Loki indexes and organises log data on disk
-# ------------------------------------------------------------
 schema_config:
   configs:
     - from: 2024-01-01
@@ -36,9 +29,6 @@ schema_config:
         prefix: index_
         period: 24h
 
-# ------------------------------------------------------------
-# Storage — where index files and log chunks live on disk
-# ------------------------------------------------------------
 storage_config:
   boltdb_shipper:
     active_index_directory: /loki/index
@@ -47,20 +37,17 @@ storage_config:
   filesystem:
     directory: /loki/chunks
 
-# ------------------------------------------------------------
-# Limits — retention and ingestion controls
-# ------------------------------------------------------------
 limits_config:
   retention_period: 7d
   reject_old_samples: true
   reject_old_samples_max_age: 168h
   enforce_metric_name: false
 
-# ------------------------------------------------------------
-# Compactor — enforces retention by deleting old chunks
-# ------------------------------------------------------------
 compactor:
   working_directory: /loki/compactor
   shared_store: filesystem
   retention_enabled: true
   compaction_interval: 10m
+
+frontend:
+  max_outstanding_per_tenant: 256

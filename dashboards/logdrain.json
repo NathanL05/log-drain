@@ -3,9 +3,9 @@
   "uid": "logdrain",
   "schemaVersion": 36,
   "version": 1,
-  "refresh": "10s",
+  "refresh": "30s",
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timezone": "browser",
@@ -54,7 +54,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/access.log\"}[$__interval]))",
+          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/access.log\"}[1m]))",
           "legendFormat": "Requests"
         }
       ]
@@ -68,7 +68,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/error.log\"}[$__interval]))",
+          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/error.log\"}[1m]))",
           "legendFormat": "Errors"
         }
       ]
@@ -82,7 +82,7 @@
       "targets": [
         {
           "datasource": { "type": "loki", "uid": "loki" },
-          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/auth.log\"} |= \"FAILURE\" [$__interval]))",
+          "expr": "sum(count_over_time({job=\"logdrain\", filename=\"/app/logs/auth.log\"} |= \"FAILURE\" [1m]))",
           "legendFormat": "Failed Logins"
         }
       ]
