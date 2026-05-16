@@ -26,12 +26,19 @@ No other dependencies. Everything runs inside containers.
 ## Running the Stack
 
 ```bash
-docker compose up --build -d
+make up
 ```
 
 To stop:
 
 ```bash
+make down
+```
+
+Or without Make:
+
+```bash
+docker compose up --build -d
 docker compose down
 ```
 
@@ -47,6 +54,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser. The LogDrai
 | Loki | http://localhost:3100 |
 | Promtail | http://localhost:9080 |
 
+To stream live logs from all containers:
+
+```bash
+make logs
+```
+
 ---
 
 ## Troubleshooting
@@ -60,3 +73,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser. The LogDrai
 **Container fails to start**
 - Check for port conflicts on 3000, 3100, or 9080
 - Run `docker compose logs <service>` to see the error
+
+**Inspecting logs directly**
+
+Run the log parser to see a summary of error counts, top error messages, and HTTP status code breakdown:
+
+```bash
+make parse
+```
+
+If you get a permission error, make the script executable first:
+
+```bash
+chmod +x ./scripts/log-parser.sh
+```
