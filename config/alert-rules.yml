@@ -1,0 +1,10 @@
+groups:
+  - name: 'alerts'
+    rules:
+      - alert: 'error-rate'
+        expr: 'rate({job="logdrain", filename="/app/logs/error.log"}[5m]) > 0'
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: 'High rates of errors'
